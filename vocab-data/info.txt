@@ -1,0 +1,11 @@
+vocab_list_labeled.txt consists of 720 words labeled as Easy, Medium, or Hard
+
+vocabulary.json consists of 720 json objects, where each object is of the format:
+Ex: {
+  "word": "allure",
+  "difficulty": "Easy",
+  "paragraph1": "...",
+  "paragraph2": "...",
+  "paragraph3": "..."
+}
+The word is blanked in each paragraph

@@ -1,0 +1,74 @@
+You are creating data for a vocabulary quiz application.
+
+I will provide a list of words in the format
+
+word, difficulty
+
+Generate a JSON array.
+
+For EACH word generate exactly one object.
+
+Requirements
+
+- Return ONLY valid JSON.
+- Do not wrap the JSON in markdown.
+- Output must be a JSON array.
+- Do not include explanations.
+
+Each object must have this exact structure:
+
+{
+  "word": "",
+  "difficulty": "",
+  "options": [],
+  "paragraph1": "",
+  "paragraph2": "",
+  "paragraph3": ""
+}
+
+Rules
+
+1. "word" contains the vocabulary word.
+2. "difficulty" is copied exactly.
+3. "options" contains exactly four unique words.
+4. Include the correct word exactly once.
+5. Generate exactly three distractors.
+
+IMPORTANT:
+The distractors should NOT simply be the closest synonyms.
+
+Instead, choose plausible competitors:
+- words with related meanings,
+- words from the same semantic category,
+- or words that someone who partially understands the target word might realistically choose.
+
+The correct answer should be the only word that fits ALL THREE paragraphs naturally.
+
+Avoid distractors that are interchangeable with the correct answer in every context.
+
+For example, instead of:
+appropriate, suitable, fitting, apt
+
+Prefer something like:
+appropriate, suitable, proper, relevant
+
+The goal is to test understanding of meaning and usage, not just memorization of synonyms.
+
+6. Shuffle the four options randomly.
+7. Paragraphs should each be 2–3 sentences.
+8. Use three different contexts (e.g. school, business, science, history, everyday life).
+9. Replace every occurrence of the vocabulary word with exactly:
+
+_____________
+
+10. Never reveal the answer anywhere in the paragraphs.
+11. Each paragraph should naturally allow the user to infer the missing word from context.
+12. Use correct grammar and natural English.
+13. Vary sentence structure and avoid repetitive phrasing across words.
+14. Ensure all three paragraphs emphasize slightly different senses or usages of the target word whenever possible.
+15. Before returning the object, verify that:
+- the correct word is the best answer for all three paragraphs,
+- each distractor is plausible,
+- but each distractor is incorrect for at least one of the three paragraphs.
+
+Generate objects for these words:
