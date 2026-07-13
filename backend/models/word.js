@@ -1,33 +1,40 @@
 const mongoose = require('mongoose')
 
-const blogSchema = new mongoose.Schema({
-  title: {
+const wordSchema = new mongoose.Schema({
+  word: {
     type: String,
     minLength: 1,
     required: true
   },
-  author: {
+  difficulty: {
+    type: String,
+    required: true
+  },
+  options: [
+    {
+      type: String,
+      minLength: 1,
+      required: true
+    }
+  ],
+  paragraph1: {
     type: String,
     minLength: 1,
     required: true
   },
-  url: {
+  paragraph2: {
     type: String,
     minLength: 1,
     required: true
   },
-  likes: {
-    type: Number,
-    default: 0
+  paragraph3: {
+    type: String,
+    minLength: 1,
+    required: true
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
-  }
 })
 
-blogSchema.set('toJSON', {
+wordSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -35,4 +42,4 @@ blogSchema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('Blog', blogSchema)
+module.exports = mongoose.model('Blog', wordSchema)

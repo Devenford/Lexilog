@@ -1,5 +1,5 @@
 const blogsRouter = require('express').Router()
-const Blog = require('../models/blog')
+const Blog = require('../models/word')
 const { userExtractor } = require('../utils/middleware')    // object destructuring
 
 blogsRouter.get('/', async (request, response) => {
