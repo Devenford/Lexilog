@@ -4,7 +4,8 @@ const wordSchema = new mongoose.Schema({
   word: {
     type: String,
     minLength: 1,
-    required: true
+    required: true,
+    unique: true // this ensures uniqueness of the word
   },
   difficulty: {
     type: String,
@@ -34,4 +35,4 @@ wordSchema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('Blog', wordSchema)
+module.exports = mongoose.model('Word', wordSchema)
