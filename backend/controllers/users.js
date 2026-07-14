@@ -3,8 +3,9 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 
 usersRouter.get('/', async (request, response) => {
-  const users = await User.find({}).populate('blogs', { title: 1, author: 1, url: 1, likes: 1 })
+  const users = await User.find({})
   response.json(users)
+  // When .json() is called the .toJSON() transformation is called from the userSchema, which deletes the passwordHash, name, and role before sending the array of users in the response.
 })
 
 usersRouter.post('/', async (request, response) => {

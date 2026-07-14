@@ -52,7 +52,7 @@ const tokenExtractor = (request, response, next) => {
 
 const userExtractor = async (request, response, next) => {
   const decodedToken = jwt.verify(request.token, process.env.SECRET)
-  // .verify only checks if the token is authentic/valid, it doesn't check if the blog (with the given id) belongs to the user that sent the request. Thus, anyone with a valid token and UserId could delete any blog, even ones that don't belong to them.
+  // .verify only checks if the token is authentic/valid, it doesn't check if the word (with the given id) belongs to the user that sent the request. Thus, anyone with a valid token and UserId could delete any word, even ones that don't belong to them.
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token invalid' })
   }
@@ -63,7 +63,7 @@ const userExtractor = async (request, response, next) => {
   }
   /*
   Checking whether the user exists is important. Consider this scenario:
-  1. User Alice creates a blog.
+  1. User Alice creates a word.
   2. Alice logs in and gets a valid JWT.
   3. Alice's account is deleted from the database.
   4. Her JWT hasn't expired yet.
@@ -75,10 +75,21 @@ const userExtractor = async (request, response, next) => {
   next()
 }
 
+const adminOnly = async (request, response, next) => {
+  // Only the admin can access this route:
+  const user = request.user
+  if (user.role !== 'admin') {
+    return response.status(403).json({ error: 'forbidden request' })
+  }
+
+  next()
+}
+
 module.exports = {
   requestLogger,
   unknownEndpoint,
   errorHandler,
   tokenExtractor,
-  userExtractor
+  userExtractor,
+  adminOnly
 }

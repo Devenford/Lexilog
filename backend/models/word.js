@@ -17,21 +17,13 @@ const wordSchema = new mongoose.Schema({
       required: true
     }
   ],
-  paragraph1: {
-    type: String,
-    minLength: 1,
-    required: true
-  },
-  paragraph2: {
-    type: String,
-    minLength: 1,
-    required: true
-  },
-  paragraph3: {
-    type: String,
-    minLength: 1,
-    required: true
-  },
+  paragraphs: [      // 3 entries in default list
+    {
+      type: String,
+      minLength: 1,
+      required: true
+    }
+  ]
 })
 
 wordSchema.set('toJSON', {

@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const config = require('./utils/config')
 const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
-const blogsRouter = require('./controllers/blogs')
+const wordsRouter = require('./controllers/words')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
@@ -23,7 +23,7 @@ app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
 //routing middleware
-app.use('/api/blogs', blogsRouter)
+app.use('/api/words', wordsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
