@@ -43,6 +43,7 @@ const Login = ({ setUser, setNotification }) => {
               id='username'
               name='username'
               autoComplete='username'
+              required
               value={username}
               onChange={({ target }) => setUsername(target.value)}
             />
@@ -56,6 +57,7 @@ const Login = ({ setUser, setNotification }) => {
               id='password'
               name='password'
               autoComplete='current-password'
+              required
               value={password}
               onChange={({ target }) => setPassword(target.value)}
             />

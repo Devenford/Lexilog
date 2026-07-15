@@ -45,6 +45,7 @@ const SignUp = ({ setUser, setNotification }) => {
               type='text'
               id='username'
               name='username'
+              required
               value={username}
               onChange={({ target }) => setUsername(target.value)}
             />
@@ -69,6 +70,7 @@ const SignUp = ({ setUser, setNotification }) => {
               type='password'
               id='password'
               name='password'
+              required
               value={password}
               onChange={({ target }) => setPassword(target.value)}
             />
