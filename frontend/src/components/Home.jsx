@@ -1,26 +1,19 @@
-import { Link } from 'react-router-dom'
-import Blog from '../components/Blog'
-
-const Home = ({ blogs }) => {
-
-  const sortedBlogs = blogs.toSorted((b1, b2) => b2.likes - b1.likes)
-  /* Don't do this:
-    blogs.sort((b1, b2) => b2.likes - b1.likes)
-    Since blogs is a React state, you shouldn't mutate it directly!!!!!
-    .sort() sorts in-place
-    */
-
+const Home = () => {
   return (
     <div>
-      <h1>Blogs</h1>
-      <ul>
-        {sortedBlogs.map(blog => (
-          <li key={blog.id}>
-            <Link to={`/blogs/${blog.id}`}>{`${blog.title} by ${blog.author}`}</Link>
-          </li>
-        ))}
-      </ul>
+      <h1>
+        Lexilog
+      </h1>
+      <h3>
+        Unlock the Power of Words.
+      </h3>
+      <p>
+        Expand your vocabulary with personalized learning, daily practice, and smart revision. Lexilog helps you remember more, express yourself better, and keep growing—one word at a time.
+
+        Complete daily challenges, earn rewards, build streaks, and master new words.
+      </p>
     </div>
-  )}
+  )
+}
 
 export default Home

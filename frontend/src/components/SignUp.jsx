@@ -1,19 +1,21 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import loginService from '../services/login'
+import signupService from '../services/signup'
 import wordService from '../services/words'
 
-const Login = ({ setUser, setNotification }) => {
+const SignUp = ({ setUser, setNotification }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
   const navigate = useNavigate()
 
-  const handleLogin = async (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault()
     try {
-      const user = await loginService.login({ username, password })
+      const user = await signupService.signup({ username, password })
       navigate('/')
       setUsername('')
+      setName('')
       setPassword('')
       wordService.setToken(user.token)
       window.localStorage.setItem(
@@ -23,7 +25,8 @@ const Login = ({ setUser, setNotification }) => {
     }
     catch {
       setNotification({
-        data: 'wrong username or password', type: 'error'
+        data: 'username must be unique',
+        type: 'error'
       })
       setTimeout(() => {
         setNotification(null)
@@ -33,8 +36,8 @@ const Login = ({ setUser, setNotification }) => {
 
   return (
     <div>
-      <h2>Log in</h2>
-      <form onSubmit={handleLogin}>
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSignUp}>
         <div>
           <label>
             username
@@ -42,9 +45,20 @@ const Login = ({ setUser, setNotification }) => {
               type='text'
               id='username'
               name='username'
-              autoComplete='username'
               value={username}
               onChange={({ target }) => setUsername(target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            name
+            <input
+              type='text'
+              id='name'
+              name='name'
+              value={name}
+              onChange={({ target }) => setName(target.value)}
             />
           </label>
         </div>
@@ -55,7 +69,6 @@ const Login = ({ setUser, setNotification }) => {
               type='password'
               id='password'
               name='password'
-              autoComplete='current-password'
               value={password}
               onChange={({ target }) => setPassword(target.value)}
             />
@@ -63,7 +76,7 @@ const Login = ({ setUser, setNotification }) => {
         </div>
         <div>
           <button type='submit' >
-            login
+            sign up
           </button>
         </div>
       </form>
@@ -71,4 +84,4 @@ const Login = ({ setUser, setNotification }) => {
   )
 }
 
-export default Login
+export default SignUp

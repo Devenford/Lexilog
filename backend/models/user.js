@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     minLength: 1,
-    required: true
   },
   passwordHash: {
     type: String,
@@ -21,6 +20,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     default: 'user'
+  },
+  coins: {
+    type: Number,
+    required: true,
+    default: 0
   }
 })
 
