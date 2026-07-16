@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import {
-  Routes, Route, Link, Navigate
+  Routes, Route, NavLink, Navigate
 } from 'react-router-dom'
 import wordService from './services/words'
 import Home from './components/Home'
@@ -8,6 +8,7 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
+import { Button } from '@/components/ui/button'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -33,46 +34,55 @@ const App = () => {
     return null
   }
 
-  const padding = {
-    padding: 5
-  }
-
   return (
     <div>
       <Toaster />
-      <Link style={padding} to='/'>
-        Home
-      </Link>
-      {!user &&
-        <span>
-          <Link style={padding} to='/signup'>
-            Sign Up
-          </Link>
-          <Link style={padding} to='/login'>
-            Login
-          </Link>
-        </span>
-      }
-      {user &&
-        <button onClick={handleLogout}>
-          logout
-        </button>
-      }
 
-      <Routes>
-        <Route
-          path='/login'
-          element={ user ? <Navigate to='/' replace /> : <Login setUser={setUser} />}
-        />
-        <Route
-          path='/signup'
-          element={ user ? <Navigate to='/' replace /> : <SignUp setUser={setUser} />}
-        />
-        <Route
-          path='/'
-          element={<Home />}
-        />
-      </Routes>
+      <header className='border-b bg-background mb-6'>
+        <nav className='mx-auto flex h-12 max-w-7xl items-center justify-between px-6'>
+          <NavLink to='/'>
+            Lexilog
+          </NavLink>
+          <div className='flex items-center gap-2'>
+            {user ?
+              <Button onClick={handleLogout}>
+              logout
+              </Button>
+              :
+              <>
+                <Button variant='ghost'>
+                  <NavLink to='/signup'>
+                    Sign Up
+                  </NavLink>
+                </Button>
+
+                <Button>
+                  <NavLink to='/login'>
+                    Login
+                  </NavLink>
+                </Button>
+              </>
+            }
+          </div>
+        </nav>
+      </header>
+
+      <div>
+        <Routes>
+          <Route
+            path='/login'
+            element={ user ? <Navigate to='/' replace /> : <Login setUser={setUser} />}
+          />
+          <Route
+            path='/signup'
+            element={ user ? <Navigate to='/' replace /> : <SignUp setUser={setUser} />}
+          />
+          <Route
+            path='/'
+            element={<Home />}
+          />
+        </Routes>
+      </div>
     </div>
   )
 }

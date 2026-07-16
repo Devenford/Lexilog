@@ -3,6 +3,18 @@ import { useNavigate } from 'react-router-dom'
 import loginService from '../services/login'
 import wordService from '../services/words'
 import { toast } from 'sonner'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 const Login = ({ setUser }) => {
   const [username, setUsername] = useState('')
@@ -29,42 +41,60 @@ const Login = ({ setUser }) => {
 
   return (
     <div>
-      <h2>Log in</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>
-            username
-            <input
-              type='text'
-              id='username'
-              name='username'
-              autoComplete='username'
-              required
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            password
-            <input
-              type='password'
-              id='password'
-              name='password'
-              autoComplete='current-password'
-              required
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <button type='submit' >
-            login
-          </button>
-        </div>
-      </form>
+      <Card className='w-full max-w-sm place-self-center'>
+        <form className='flex flex-col gap-4' onSubmit={handleLogin}>
+          <CardHeader>
+            <CardTitle>
+            Login to your account
+            </CardTitle>
+            <CardDescription>
+            Enter your username below to login to your account
+            </CardDescription>
+            <CardAction>
+              <Button type='button' variant='link' onClick={() => navigate('/signup')}>
+            Sign up
+              </Button>
+            </CardAction>
+          </CardHeader>
+          <CardContent>
+            <div className='flex flex-col gap-6'>
+              <div className='grid gap-2'>
+                <Label htmlFor='username'>
+                Username
+                </Label>
+                <Input
+                  type='text'
+                  id='username'
+                  name='username'
+                  autoComplete='username'
+                  required
+                  value={username}
+                  onChange={({ target }) => setUsername(target.value)}
+                />
+              </div>
+              <div className='grid gap-2'>
+                <Label htmlFor='password'>
+                Password
+                </Label>
+                <Input
+                  type='password'
+                  id='password'
+                  name='password'
+                  autoComplete='current-password'
+                  required
+                  value={password}
+                  onChange={({ target }) => setPassword(target.value)}
+                />
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter className='flex flex-col gap-2'>
+            <Button type='submit' className='w-full'>
+            Login
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   )
 }

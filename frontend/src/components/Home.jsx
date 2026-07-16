@@ -3,9 +3,6 @@ import { Button } from '@/components/ui/button'
 const Home = () => {
   return (
     <div>
-      <h1>
-        Lexilog
-      </h1>
       <h3>
         Unlock the Power of Words.
       </h3>
