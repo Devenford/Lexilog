@@ -3,13 +3,13 @@ import {
   Routes, Route, Link, Navigate
 } from 'react-router-dom'
 import wordService from './services/words'
-import Notification from './components/Notification'
 import Home from './components/Home'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
+import { Toaster } from '@/components/ui/sonner'
+import { toast } from 'sonner'
 
 const App = () => {
-  const [notification, setNotification] = useState(null)
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true) // if the user state is still being loaded/retrieved from localStorage
 
@@ -26,6 +26,7 @@ const App = () => {
   const handleLogout = () => {
     window.localStorage.removeItem('loggedLexilogUser')
     setUser(null)
+    toast.success('Logged Out', { position: 'top-center ' })
   }
 
   if (loading) {
@@ -38,7 +39,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification notification={notification} />
+      <Toaster />
       <Link style={padding} to='/'>
         Home
       </Link>
@@ -61,11 +62,11 @@ const App = () => {
       <Routes>
         <Route
           path='/login'
-          element={ user ? <Navigate to='/' replace /> : <Login setUser={setUser} setNotification={setNotification} />}
+          element={ user ? <Navigate to='/' replace /> : <Login setUser={setUser} />}
         />
         <Route
           path='/signup'
-          element={ user ? <Navigate to='/' replace /> : <SignUp setUser={setUser} setNotification={setNotification}/>}
+          element={ user ? <Navigate to='/' replace /> : <SignUp setUser={setUser} />}
         />
         <Route
           path='/'

@@ -14,7 +14,6 @@ const Home = () => {
 
         Complete daily challenges, earn rewards, build streaks, and master new words.
       </p>
-      <Button className="px-8 py-6 text-lg">Click me</Button>
     </div>
   )
 }

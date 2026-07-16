@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import loginService from '../services/login'
 import wordService from '../services/words'
+import { toast } from 'sonner'
 
-const Login = ({ setUser, setNotification }) => {
+const Login = ({ setUser }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -22,12 +23,7 @@ const Login = ({ setUser, setNotification }) => {
       setUser(user)
     }
     catch {
-      setNotification({
-        data: 'wrong username or password', type: 'error'
-      })
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
+      toast('wrong username or password', { position: 'top-center' })
     }
   }
 

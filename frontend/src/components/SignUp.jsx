@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import signupService from '../services/signup'
 import wordService from '../services/words'
+import { toast } from 'sonner'
 
-const SignUp = ({ setUser, setNotification }) => {
+const SignUp = ({ setUser }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
@@ -24,13 +25,7 @@ const SignUp = ({ setUser, setNotification }) => {
       setUser(user)
     }
     catch {
-      setNotification({
-        data: 'username must be unique',
-        type: 'error'
-      })
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
+      toast.error('username must be unique', { position: 'top-center' })
     }
   }
 
