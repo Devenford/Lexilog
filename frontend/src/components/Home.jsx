@@ -1,6 +1,16 @@
 import { Button } from '@/components/ui/button'
 
-const Home = () => {
+const Home = ({ user }) => {
+  if (user) {
+    return (
+      <div>
+        <h3>
+          Welcome back {`${user.username}`}!
+        </h3>
+      </div>
+    )
+  }
+
   return (
     <div>
       <h3>

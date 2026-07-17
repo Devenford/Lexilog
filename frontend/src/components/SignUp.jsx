@@ -52,11 +52,6 @@ const SignUp = ({ setUser }) => {
             <CardDescription>
             Create a an account
             </CardDescription>
-            <CardAction>
-              <Button type='button' variant='link' onClick={() => navigate('/login')}>
-                Login
-              </Button>
-            </CardAction>
           </CardHeader>
           <CardContent>
             <div className='flex flex-col gap-6'>

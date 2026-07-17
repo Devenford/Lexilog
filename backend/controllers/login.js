@@ -27,11 +27,9 @@ loginRouter.post('/', async (request, response) => {
 
   response
     .status(200)
-    .send({
+    .json({
       token,
-      username: user.username,
-      name: user.name,
-      id: user._id
+      ...user.toJSON()
     })
   // We can send the name here (in the login endpoint), since only an authentic user (with the right username and password credentials) can login. Thus, only the user will have access to their name.
   // Don't call .json(), since it would call the toJSON() transformation, which would delete the name

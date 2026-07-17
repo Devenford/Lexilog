@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react'
 import {
-  Routes, Route, NavLink, Navigate
+  Routes, Route, NavLink, Navigate, useNavigate
 } from 'react-router-dom'
 import wordService from './services/words'
 import Home from './components/Home'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
+import Practice from './components/Practice'
 import { Toaster } from '@/components/ui/sonner'
-import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Coins } from 'lucide-react'
 
 const App = () => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true) // if the user state is still being loaded/retrieved from localStorage
+  const navigate = useNavigate()
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedLexilogUser')
@@ -27,7 +30,6 @@ const App = () => {
   const handleLogout = () => {
     window.localStorage.removeItem('loggedLexilogUser')
     setUser(null)
-    toast.success('Logged Out', { position: 'top-center ' })
   }
 
   if (loading) {
@@ -39,24 +41,40 @@ const App = () => {
       <Toaster />
 
       <header className='border-b bg-background mb-6'>
-        <nav className='mx-auto flex h-12 max-w-7xl items-center justify-between px-6'>
-          <NavLink to='/'>
-            Lexilog
-          </NavLink>
-          <div className='flex items-center gap-2'>
-            {user ?
-              <Button onClick={handleLogout}>
-              logout
+        <nav className='mx-auto flex h-15 max-w-7xl items-center justify-between px-1'>
+          <div className='flex items-center gap-3'>
+            <NavLink to='/'>
+              <img
+                src='../images/Final_Website_Logo.png'
+                className='h-15'
+              />
+            </NavLink>
+            { user &&
+              <Button onClick={() => navigate('/practice')} variant='link' className='text-white text-lg'>
+                  Practice
               </Button>
+            }
+          </div>
+          <div className='flex items-center gap-3'>
+            {user ?
+              <>
+                <Badge variant='secondary' className='h-10 text-base'>
+                  <img src='../images/coin.svg' alt='Coin' className='h-8 w-8'/>
+                  {user.coins}
+                </Badge>
+                <Button onClick={handleLogout} className='text-sm'>
+                  logout
+                </Button>
+              </>
               :
               <>
-                <Button variant='ghost'>
+                <Button variant='ghost' className='hover:bg-accent/50 text-sm'>
                   <NavLink to='/signup'>
                     Sign Up
                   </NavLink>
                 </Button>
 
-                <Button>
+                <Button className='text-sm'>
                   <NavLink to='/login'>
                     Login
                   </NavLink>
@@ -70,6 +88,10 @@ const App = () => {
       <div>
         <Routes>
           <Route
+            path='/practice'
+            element={ user ? <Practice /> : <Navigate to='/' replace />}
+          />
+          <Route
             path='/login'
             element={ user ? <Navigate to='/' replace /> : <Login setUser={setUser} />}
           />
@@ -79,7 +101,7 @@ const App = () => {
           />
           <Route
             path='/'
-            element={<Home />}
+            element={<Home user={user}/>}
           />
         </Routes>
       </div>

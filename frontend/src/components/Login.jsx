@@ -50,11 +50,6 @@ const Login = ({ setUser }) => {
             <CardDescription>
             Enter your username below to login to your account
             </CardDescription>
-            <CardAction>
-              <Button type='button' variant='link' onClick={() => navigate('/signup')}>
-            Sign up
-              </Button>
-            </CardAction>
           </CardHeader>
           <CardContent>
             <div className='flex flex-col gap-6'>
