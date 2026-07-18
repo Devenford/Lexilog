@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react'
 import {
   Routes, Route, NavLink, Navigate, useNavigate
 } from 'react-router-dom'
-import wordService from './services/words'
+
+import authService from './services/auth'
 import Home from './components/Home'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Practice from './components/Practice'
+import MultipleChoice from './components/MultipleChoice'
+
 import { Toaster } from '@/components/ui/sonner'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -22,7 +25,7 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)    // updation of state causes re-rendering of the component (App), which it belongs to, and their child components/descendants
-      wordService.setToken(user.token)
+      authService.setToken(user.token)
     }
     setLoading(false)
   }, []) // to restore a user that's logged in, must be in App to ensure the user's authentication is restored across all pages
@@ -62,7 +65,7 @@ const App = () => {
                   <img src='../images/coin.svg' alt='Coin' className='h-8 w-8'/>
                   {user.coins}
                 </Badge>
-                <Button onClick={handleLogout} className='text-sm'>
+                <Button onClick={handleLogout} className='text-base'>
                   logout
                 </Button>
               </>
@@ -90,6 +93,10 @@ const App = () => {
           <Route
             path='/practice'
             element={ user ? <Practice /> : <Navigate to='/' replace />}
+          />
+          <Route
+            path='/practice/multiplechoice'
+            element={ user ? <MultipleChoice /> : <Navigate to='/' replace />}
           />
           <Route
             path='/login'

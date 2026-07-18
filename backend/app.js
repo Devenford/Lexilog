@@ -6,6 +6,7 @@ const middleware = require('./utils/middleware')
 const wordsRouter = require('./controllers/words')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const practiceRouter = require('./controllers/practice')
 
 const app = express()
 
@@ -26,6 +27,7 @@ app.use(middleware.tokenExtractor)
 app.use('/api/words', wordsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/practice', middleware.userExtractor, practiceRouter)
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')

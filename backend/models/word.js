@@ -7,8 +7,9 @@ const wordSchema = new mongoose.Schema({
     required: true,
     unique: true // this ensures uniqueness of the word
   },
-  difficulty: {
+  difficulty: {  // 'Easy', 'Medium', or 'Hard'
     type: String,
+    enum: ['Easy', 'Medium', 'Hard'],
     required: true
   },
   options: [
