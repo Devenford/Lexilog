@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import loginService from '../services/login'
-import wordService from '../services/words'
+import authService from '../services/auth'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -25,37 +25,39 @@ const Login = ({ setUser }) => {
     event.preventDefault()
     try {
       const user = await loginService.login({ username, password })
+      console.log('Login response:', user)
       navigate('/')
       setUsername('')
       setPassword('')
-      wordService.setToken(user.token)
+      authService.setToken(user.token)
       window.localStorage.setItem(
         'loggedLexilogUser', JSON.stringify(user)
       )
       setUser(user)
     }
-    catch {
+    catch (error) {
+      console.log(error)
       toast('wrong username or password', { position: 'top-center' })
     }
   }
 
   return (
     <div>
-      <Card className='w-full max-w-sm place-self-center'>
+      <Card className='w-full max-w-lg place-self-center'>
         <form className='flex flex-col gap-4' onSubmit={handleLogin}>
           <CardHeader>
-            <CardTitle>
-            Login to your account
+            <CardTitle className='text-xl'>
+              Login to your account
             </CardTitle>
-            <CardDescription>
-            Enter your username below to login to your account
+            <CardDescription className='text-base'>
+              Enter your username below to login to your account
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className='flex flex-col gap-6'>
               <div className='grid gap-2'>
-                <Label htmlFor='username'>
-                Username
+                <Label htmlFor='username' className='text-base'>
+                  Username
                 </Label>
                 <Input
                   type='text'
@@ -68,8 +70,8 @@ const Login = ({ setUser }) => {
                 />
               </div>
               <div className='grid gap-2'>
-                <Label htmlFor='password'>
-                Password
+                <Label htmlFor='password' className='text-base'>
+                  Password
                 </Label>
                 <Input
                   type='password'
@@ -84,8 +86,8 @@ const Login = ({ setUser }) => {
             </div>
           </CardContent>
           <CardFooter className='flex flex-col gap-2'>
-            <Button type='submit' className='w-full'>
-            Login
+            <Button type='submit' className='w-full text-base h-10'>
+              Login
             </Button>
           </CardFooter>
         </form>

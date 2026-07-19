@@ -8,7 +8,7 @@ import Home from './components/Home'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Practice from './components/Practice'
-import MultipleChoice from './components/MultipleChoice'
+import MultipleChoice from './components/MultipleChoice/MultipleChoice'
 
 import { Toaster } from '@/components/ui/sonner'
 import { Button } from '@/components/ui/button'
