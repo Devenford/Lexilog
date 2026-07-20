@@ -25,7 +25,7 @@ const SignUp = ({ setUser }) => {
   const handleSignUp = async (event) => {
     event.preventDefault()
     try {
-      const user = await signupService.signup({ username, password })
+      const user = await signupService.signup({ username, name, password })
       navigate('/')
       setUsername('')
       setName('')

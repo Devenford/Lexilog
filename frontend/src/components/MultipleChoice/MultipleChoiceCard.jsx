@@ -29,7 +29,6 @@ const MultipleChoiceCard = ({ word, curr, setCurr, setResults }) => {
 
   const handleNext = () => {
     setResults(currentResults => [...currentResults, {
-      word: word.word,
       id: word.id,
       tries: tries
     }])

@@ -1,8 +1,10 @@
 const router = require('express').Router()
 const Word = require('../models/word')
 const User = require('../models/user')
+const { userExtractor, adminOnly } = require('../utils/middleware')
 
-router.post('/reset', async (request, response) => {
+// Only Admins can reset the state of the database (adminOnly middleware)
+router.post('/reset', userExtractor, adminOnly, async (request, response) => {
   await Word.deleteMany({})
   await User.deleteMany({})
 

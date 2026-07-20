@@ -16,13 +16,16 @@ const userWordSchema = new mongoose.Schema({
   proficiency: {     // 0-99 = learning, 100 = mastered
     type: Number,
     default: 0,
-    required: true
+    min: 0,
+    max: 100
   },
   status: {
     type: String,
     enum: ['learning', 'mastered'], // The status field is only allowed to have one of these values: 'learning' or 'mastered'
     default: 'learning',
-    required: true
+  },
+  lastReviewed: {
+    type: Date
   }
 })
 
