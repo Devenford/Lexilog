@@ -1,4 +1,4 @@
-const MultipleChoiceResultCalculation = ({ tries, userword, user }) => {
+const resultCalculation = (tries, userword, user) => {
 
   switch (tries) {
     case 1:
@@ -25,4 +25,4 @@ const MultipleChoiceResultCalculation = ({ tries, userword, user }) => {
   userword.lastReviewed = new Date()
 }
 
-module.exports = MultipleChoiceResultCalculation
+module.exports = resultCalculation

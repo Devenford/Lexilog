@@ -19,6 +19,9 @@ const pickWeighted = (userwords) => {
     }
   }
 }
+/* pickWeighted performs Weighted Random Selection. So, every word has a chance of being picked, but words with higher weights are more likely to be chosen.
+A word with proficiency 10 (weight 10) is 10 times as likely to be selected as a mastered word with proficiency 100 (weight 1). This biases quizzes toward words the user knows less well while still occasionally reviewing mastered words.
+*/
 
 const pickWords = (userwords, count) => { // count is the number of words you wanna pick from userwords
   const pool = [...userwords] // pool of possible words to select from

@@ -96,7 +96,7 @@ const App = () => {
           />
           <Route
             path='/practice/multiplechoice'
-            element={ user ? <MultipleChoice /> : <Navigate to='/' replace />}
+            element={ user ? <MultipleChoice setUser={setUser}/> : <Navigate to='/' replace />}
           />
           <Route
             path='/login'

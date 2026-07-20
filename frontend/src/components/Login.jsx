@@ -25,7 +25,6 @@ const Login = ({ setUser }) => {
     event.preventDefault()
     try {
       const user = await loginService.login({ username, password })
-      console.log('Login response:', user)
       navigate('/')
       setUsername('')
       setPassword('')
