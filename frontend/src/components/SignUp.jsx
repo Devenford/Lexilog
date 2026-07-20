@@ -32,7 +32,7 @@ const SignUp = ({ setUser }) => {
       setPassword('')
       authService.setToken(user.token)
       window.localStorage.setItem(
-        'loggedLexilogUser', JSON.stringify(user)
+        'loggedLexilogUserToken', user.token
       )
       setUser(user)
     }

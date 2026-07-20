@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom'
 
 import authService from './services/auth'
+import userService from './services/user'
 import Home from './components/Home'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
@@ -13,7 +14,6 @@ import MultipleChoice from './components/MultipleChoice/MultipleChoice'
 import { Toaster } from '@/components/ui/sonner'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Coins } from 'lucide-react'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -21,17 +21,32 @@ const App = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedLexilogUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)    // updation of state causes re-rendering of the component (App), which it belongs to, and their child components/descendants
-      authService.setToken(user.token)
+    const loadUser = async () => {
+      try {
+        const token = window.localStorage.getItem('loggedLexilogUserToken')
+        if (token) {
+          authService.setToken(token)
+          const user = await userService.getCurrentUser()
+          setUser(user)    // updation of state causes re-rendering of the component (App), which it belongs to, and their child components/descendants
+        }
+      }
+      catch (error) { // token expired, login again
+        console.log(error)
+        window.localStorage.removeItem('loggedLexilogUserToken')
+        setUser(null)
+        authService.setToken(null)
+      }
+      finally {
+        setLoading(false)
+      }
     }
-    setLoading(false)
+
+    loadUser()
   }, []) // to restore a user that's logged in, must be in App to ensure the user's authentication is restored across all pages
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedLexilogUser')
+    window.localStorage.removeItem('loggedLexilogUserToken')
+    authService.setToken(null)
     setUser(null)
   }
 

@@ -14,7 +14,12 @@ const getConfig = () => ({
 })
 
 const setToken = newToken => {
-  token = `Bearer ${newToken}`
+  if (!newToken) {
+    token = null
+  }
+  else {
+    token = `Bearer ${newToken}`
+  }
 }
 
 export default { getConfig, setToken }
