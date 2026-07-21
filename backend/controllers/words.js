@@ -1,6 +1,7 @@
 const wordsRouter = require('express').Router()
 const Word = require('../models/word')
-const { userExtractor, adminOnly } = require('../utils/middleware')
+const { adminOnly } = require('../utils/middleware')
+// middleware.userExtractor has already been called in app.js
 
 wordsRouter.get('/', async (request, response) => {
   const words = await Word.find({})
@@ -19,7 +20,7 @@ wordsRouter.get('/:word', async (request, response) => {
 })
 
 // Only Admins can create new words (adminOnly middleware)
-wordsRouter.post('/', userExtractor, adminOnly, async (request, response) => {
+wordsRouter.post('/', adminOnly, async (request, response) => {
   const body = request.body
 
   const word = new Word({
@@ -34,7 +35,7 @@ wordsRouter.post('/', userExtractor, adminOnly, async (request, response) => {
 })
 
 // Only Admins can modify words (adminOnly middleware)
-wordsRouter.put('/:word', userExtractor, adminOnly, async (request, response) => {
+wordsRouter.put('/:word', adminOnly, async (request, response) => {
   const { word, difficulty, options, paragraphs } = request.body
   const wordToBeUpdated = await Word.findOne({ word: request.params.word })
 
@@ -61,7 +62,7 @@ wordsRouter.put('/:word', userExtractor, adminOnly, async (request, response) =>
 })
 
 // Only Admins can delete words (adminOnly middleware)
-wordsRouter.delete('/:id', userExtractor, adminOnly, async (request, response) => {
+wordsRouter.delete('/:id', adminOnly, async (request, response) => {
   const word = await Word.findOne({ word: request.params.word })
   if (!word) {
     return response.status(404).json({ error: 'word does not exist' })
