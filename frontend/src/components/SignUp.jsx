@@ -26,7 +26,6 @@ const SignUp = ({ setUser }) => {
     event.preventDefault()
     try {
       const user = await signupService.signup({ username, name, password })
-      navigate('/')
       setUsername('')
       setName('')
       setPassword('')
@@ -35,6 +34,7 @@ const SignUp = ({ setUser }) => {
         'loggedLexilogUserToken', user.token
       )
       setUser(user)
+      navigate('/')
     }
     catch {
       toast.error('username must be unique', { position: 'top-center' })

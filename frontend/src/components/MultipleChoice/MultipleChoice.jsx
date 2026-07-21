@@ -84,10 +84,13 @@ const MultipleChoice = ({ setUser }) => {
               You got {`${numRight()}`} out of {`${words.length}`} correct!
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            XP: {finalResult.xpGained}
-            Coins: {finalResult.coinsGained}
-          </CardContent>
+          <CardTitle className='flex items-center justify-center gap-2 text-lg'>
+	          XP: + {finalResult.xpGained}
+            <img src='../../../images/xp.svg' alt='XP' className='h-8 w-8'/>
+          </CardTitle>
+          <CardTitle className='flex items-center justify-center gap-2 text-lg'>
+	          Coins: + {finalResult.coinsGained}<img src='../../../images/coin.svg' alt='Coin' className='h-8 w-8'/>
+          </CardTitle>
           <CardFooter className='flex flex-col gap-2'>
             <Button onClick={() => navigate('/practice')} variant='outline' className='w-50 h-10 text-sm border-2 hover:bg-gray-100 hover:text-inherit'>
             Return to Practice

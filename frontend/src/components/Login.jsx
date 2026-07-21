@@ -25,7 +25,6 @@ const Login = ({ setUser }) => {
     event.preventDefault()
     try {
       const user = await loginService.login({ username, password })
-      navigate('/')
       setUsername('')
       setPassword('')
       authService.setToken(user.token)
@@ -33,6 +32,7 @@ const Login = ({ setUser }) => {
         'loggedLexilogUserToken', user.token
       )
       setUser(user)
+      navigate('/')
     }
     catch (error) {
       console.log(error)

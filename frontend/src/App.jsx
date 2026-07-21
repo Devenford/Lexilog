@@ -35,8 +35,7 @@ const App = () => {
           setUser(user)    // updation of state causes re-rendering of the component (App), which it belongs to, and their child components/descendants
         }
       }
-      catch (error) { // token expired, login again
-        console.log(error)
+      catch { // token expired, login again
         window.localStorage.removeItem('loggedLexilogUserToken')
         setUser(null)
         authService.setToken(null)

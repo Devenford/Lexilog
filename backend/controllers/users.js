@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 const { userExtractor } = require('../utils/middleware')
@@ -30,7 +31,22 @@ usersRouter.post('/', async (request, response) => {
 
   const savedUser = await user.save()
 
-  response.status(201).json(savedUser)
+  const userForToken = {
+    username: savedUser.username,
+    id: savedUser._id
+  }
+  const token = jwt.sign(
+    userForToken,
+    process.env.SECRET,
+    { expiresIn: 24*60*60 }  // or '24h'
+  )
+
+  response
+    .status(201)
+    .json({
+      token,
+      ...savedUser.toJSON()
+    })
 })
 
 module.exports = usersRouter
