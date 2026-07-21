@@ -14,6 +14,11 @@ import MultipleChoice from './components/MultipleChoice/MultipleChoice'
 import { Toaster } from '@/components/ui/sonner'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -76,10 +81,24 @@ const App = () => {
           <div className='flex items-center gap-3'>
             {user ?
               <>
-                <Badge variant='secondary' className='h-10 text-base'>
-                  <img src='../images/coin.svg' alt='Coin' className='h-8 w-8'/>
-                  {user.coins}
-                </Badge>
+                <Tooltip>
+                  <TooltipTrigger render={<Badge variant='secondary' className='h-10 text-base'>
+                    <img src='../images/coin.svg' alt='Coin' className='h-8 w-8'/>
+                    {user.coins}
+                  </Badge>} />
+                  <TooltipContent>
+                    <p className='text-base'>Coins</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger render={<Badge variant='secondary' className='h-10 text-base'>
+                    <img src='../images/xp.svg' alt='XP' className='h-8 w-8'/>
+                    {user.xp}
+                  </Badge>} />
+                  <TooltipContent>
+                    <p className='text-base'>XP</p>
+                  </TooltipContent>
+                </Tooltip>
                 <Button onClick={handleLogout} className='text-base'>
                   logout
                 </Button>

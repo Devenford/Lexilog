@@ -36,6 +36,17 @@ const pickWords = (userwords, count) => { // count is the number of words you wa
   return selected
 }
 
+const pickRandomWords = (words, count) => {
+  const shuffledArray = [...words]  // do not mutate the original array
+  //Fisher-Yates shuffle:
+  for (let i=shuffledArray.length-1; i>0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]
+  }
+  return shuffledArray.slice(0, count)
+}
+
 module.exports = {
-  pickWords
+  pickWords,
+  pickRandomWords
 }

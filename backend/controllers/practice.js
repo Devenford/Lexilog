@@ -27,7 +27,14 @@ practiceRouter.post('/multiple-choice', async (request, response) => {
   let initialCoins = user.coins
 
   for (const result of results) {
-    const userword = await UserWord.findOne({ user: user.id, word: result.id })
+    let userword = await UserWord.findOne({ user: user.id, word: result.id })
+
+    if (!userword) { // for newly added userwords
+      userword = new UserWord({
+        user: user.id,
+        word: result.id
+      })
+    }
 
     resultCalculation(result.tries, userword, user)
 

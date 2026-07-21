@@ -1,8 +1,9 @@
 const UserWord = require('../../models/userWord')
 const Word = require('../../models/word')
-const { pickWords } = require('./wordsSelection')
+const { pickWords, pickRandomWords } = require('./wordsSelection')
 
-// Each 10-word quiz consists of 6 learning words, 1 new word, and 3 mastered words
+// Target: 10-word quiz with 6 learning, 1 new, and 3 mastered words.
+// Remaining slots are filled from available learning/mastered words.
 const QUIZ_SIZE = 10
 const LEARN_SIZE = 6
 const NEW_SIZE = 1
@@ -23,26 +24,14 @@ const getQuizWords = async (userId) => {
 
   const learning = userWords.filter(w => w.status === 'learning')
   const mastered = userWords.filter(w => w.status === 'mastered')
+  // eslint-disable-next-line no-useless-assignment
   let quizWords = []
 
   // 0.) For a new user: (Add 10 new words)
   if (userWords.length === 0) {
     const easyWords = await Word.find({ difficulty: 'Easy' })
 
-    const newWords = pickWords(easyWords, QUIZ_SIZE)
-
-    for (const word of newWords) {
-      const userWord = await UserWord.create({
-        user: userId,
-        word: word._id
-      })
-
-      await userWord.populate('word')
-      quizWords.push(userWord)
-    }
-
-    quizWords = quizWords.map(qw => qw.word)
-    return shuffle(quizWords)
+    return pickRandomWords(easyWords, QUIZ_SIZE)
   }
 
   // 1.) Add learning words (6 learning)
@@ -55,16 +44,12 @@ const getQuizWords = async (userId) => {
     _id : { $nin: assignedWordIds }
   })
   // pick random new words:
-  const newWords = pickWords(unseenWords, NEW_SIZE)
+  const newWords = pickRandomWords(unseenWords, NEW_SIZE)
 
   for (const word of newWords) {
-    const userWord = await UserWord.create({
-      user: userId,
-      word: word._id
+    quizWords.push({
+      word
     })
-
-    await userWord.populate('word')
-    quizWords.push(userWord)
   }
 
   // 3.) Add already mastered words for revision (3 mastered words)
