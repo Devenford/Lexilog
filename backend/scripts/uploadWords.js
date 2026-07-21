@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const config = require('../utils/config')
 const logger = require('../utils/logger')
 const Word = require('../models/word')
-const vocabulary = require('../../vocab-data/vocabulary.json')
+const vocabulary = require('../../vocab-data/vocabulary_final.json')
 
 const uploadWords = async () => {
   try {

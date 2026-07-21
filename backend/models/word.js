@@ -25,7 +25,23 @@ const wordSchema = new mongoose.Schema({
       minLength: 1,
       required: true
     }
-  ]
+  ],
+  definitions: [
+    {
+      definition: {
+        type: String,
+        required: true
+      },
+      paragraphIndices: {
+        type: [Number],
+        required: true
+      }
+    }
+  ],
+  synonyms: {
+    type: [String],
+    required: true
+  }
 })
 
 wordSchema.set('toJSON', {

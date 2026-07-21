@@ -1,0 +1,119 @@
+You are adding educational metadata to a vocabulary quiz application.
+
+I will provide vocabulary words with their existing quiz paragraphs.
+
+Generate ONLY the missing learning information.
+
+Do not modify:
+- the word
+- the paragraphs
+- the existing quiz content
+
+Return ONLY valid JSON.
+Do not wrap the JSON in markdown.
+Do not include explanations.
+
+For EACH input object, return exactly one object with this structure:
+
+{
+  "word": "",
+  "definitions": [],
+  "synonyms": []
+}
+
+Rules:
+
+1. "word" must match the input word exactly.
+
+2. "definitions" must be an array.
+
+3. Each definition object must have exactly this structure:
+
+{
+  "definition": "",
+  "paragraphIndices": []
+}
+
+4. Create one definition entry for each distinct meaning used in the paragraphs.
+
+5. "paragraphIndices" must contain ALL paragraph indexes where that meaning is used.
+
+Use zero-based indexing:
+- first paragraph = 0
+- second paragraph = 1
+- third paragraph = 2
+
+6. If multiple paragraphs use the same meaning:
+- create only one definition object
+- include all applicable paragraph indexes.
+
+Example:
+
+{
+  "word": "pervasive",
+  "definitions": [
+    {
+      "definition": "spreading widely throughout an area or group of people",
+      "paragraphIndices": [0, 1, 2]
+    }
+  ],
+  "synonyms": [
+    "widespread",
+    "prevalent",
+    "omnipresent"
+  ]
+}
+
+7. Definitions must:
+- be concise,
+- be understandable to a vocabulary learner,
+- explain the meaning used in the paragraph,
+- not simply repeat the word.
+
+8. "synonyms" must contain exactly 3-5 words.
+
+9. Synonyms must:
+- match the intended meaning of the word,
+- be common and understandable,
+- not include the target word itself,
+- not be overly broad.
+
+10. Do not generate unrelated meanings that are not used in the provided paragraphs.
+
+11. Before returning:
+- verify every definition matches all referenced paragraphs,
+- verify paragraph indexes are correct,
+- verify synonyms fit the intended meaning,
+- verify JSON is valid.
+
+Example:
+
+Input:
+
+{
+  "word": "pique",
+  "paragraphs": [
+    "The mysterious map served to ___________ the curiosity of every employee.",
+    "The detective's cold case was enough to ___________ his interest again.",
+    "The rare collection began to ___________ her desire to start a hobby."
+  ]
+}
+
+Output:
+
+{
+  "word": "pique",
+  "definitions": [
+    {
+      "definition": "to stimulate interest, curiosity, or excitement",
+      "paragraphIndices": [0, 1, 2]
+    }
+  ],
+  "synonyms": [
+    "arouse",
+    "stimulate",
+    "provoke"
+  ]
+}
+
+Generate metadata for these vocabulary objects:
