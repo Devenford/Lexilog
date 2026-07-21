@@ -26,7 +26,7 @@ const wordSchema = new mongoose.Schema({
       required: true
     }
   ],
-  definitions: [
+  definitions: [ //contains subdocuments, each with its own id
     {
       definition: {
         type: String,
@@ -47,6 +47,11 @@ const wordSchema = new mongoose.Schema({
 wordSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
+    returnedObject.definitions.forEach(def => {
+      def.id = def._id.toString()
+      delete def._id
+    }) // for each subdocument
+
     delete returnedObject._id
     delete returnedObject.__v
   }

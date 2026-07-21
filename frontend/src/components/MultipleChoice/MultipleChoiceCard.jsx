@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import OptionButton from './OptionButton'
+import WordInfo from './WordInfo'
 import {
   Card,
   CardAction,
@@ -54,9 +55,12 @@ const MultipleChoiceCard = ({ word, curr, setCurr, setResults }) => {
         </CardContent>
         <CardFooter className='flex flex-col gap-2'>
           {completed &&
+          <div className='flex flex-col items-center gap-8 my-6'>
+            <WordInfo word={word} paragraph={paragraph} />
             <Button onClick={handleNext} variant='outline' className='w-50 h-10 text-sm border-2 hover:bg-gray-100 hover:text-inherit'>
             Next
             </Button>
+          </div>
           }
         </CardFooter>
       </Card>
