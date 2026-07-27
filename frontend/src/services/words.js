@@ -1,13 +1,14 @@
 import axios from 'axios'
+import authService from './auth'
 const baseUrl = '/api/words'
 
 const getAll = async () => {
-  const response = await axios.get(baseUrl)
+  const response = await axios.get(baseUrl, authService.getConfig())
   return response.data
 }
 
 const getWord = async word => {
-  const response = await axios.get(`${baseUrl}/${word}`)
+  const response = await axios.get(`${baseUrl}/${word}`, authService.getConfig())
   return response.data
 }
 

@@ -7,16 +7,18 @@ leaderboardRouter.get('/', async (request, response) => {
   await checkMonthlyReset()
 
   const [usersByCoins, usersByXp, usersByMonthlyXp] = await Promise.all([
-    User.find({})
+    User.find({ role: { $ne: 'admin' } })
       .select({ username: 1, coins: 1 })
-      .sort({ coins: 'desc' }),
-    User.find({})
+      .sort({ coins: 'desc' })
+      .limit(100),
+    User.find({ role: { $ne: 'admin' } })
       .select({ username: 1, xp: 1 })
-      .sort({ xp: 'desc' }),
-    User.find({})
+      .sort({ xp: 'desc' })
+      .limit(100),
+    User.find({ role: { $ne: 'admin' } })
       .select({ username: 1, monthlyXp: 1 })
       .sort({ monthlyXp: 'desc' })
-
+      .limit(100)
   ]) // id field is included by default
 
   response

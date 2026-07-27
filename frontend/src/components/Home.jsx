@@ -8,9 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { Progress } from '@/components/ui/progress'
 
 const Home = ({ user }) => {
   if (user) {
+    const percentageComplete = (user.masteredWords/user.totalWords) * 100
+
     return (
       <div>
         <Card className='px-4 py-8 mx-8'>
@@ -19,9 +22,17 @@ const Home = ({ user }) => {
               Welcome back {`${user.username}`}
             </CardTitle>
           </CardHeader>
-          <CardContent className='flex flex-col gap-4 text-base'>
-            <p>
+          <CardContent className='flex flex-col gap-8 text-base'>
+            <p className='text-lg'>
               Click on Practice to start.
+            </p>
+            <p className='font-bold text-lg'>
+              {user.masteredWords}/{user.totalWords} Words Mastered
+              <Progress
+                trackClassName='h-6 rounded-full'
+                indicatorClassName='bg-green-500'
+                value={percentageComplete}
+              />
             </p>
           </CardContent>
         </Card>

@@ -10,6 +10,7 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Practice from './components/Practice'
 import MultipleChoice from './components/MultipleChoice/MultipleChoice'
+import Leaderboard from './components/Leaderboard'
 
 import { Toaster } from '@/components/ui/sonner'
 import { Button } from '@/components/ui/button'
@@ -19,6 +20,15 @@ import {
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -72,9 +82,23 @@ const App = () => {
               />
             </NavLink>
             { user &&
+            <>
               <Button onClick={() => navigate('/practice')} variant='link' className='text-white text-lg'>
                   Practice
               </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger render={
+                  <Button variant='link' className='text-white text-lg'>
+                    Leaderboard
+                  </Button>
+                } />
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => navigate('/leaderboards/coins')} className='text-base'>Coins</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/leaderboards/xp')}  className='text-base'>XP</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/leaderboards/monthlyxp')} className='text-base'>MonthlyXP</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
             }
           </div>
           <div className='flex items-center gap-3'>
@@ -123,6 +147,22 @@ const App = () => {
 
       <div>
         <Routes>
+          <Route
+            path='/leaderboards/coins'
+            element={ user ? <Leaderboard type='coins'/> : <Navigate to='/' replace />}
+          />
+          <Route
+            path='/leaderboards/xp'
+            element={ user ? <Leaderboard type='xp'/> : <Navigate to='/' replace />}
+          />
+          <Route
+            path='/leaderboards/monthlyxp'
+            element={ user ? <Leaderboard type='monthlyXp'/> : <Navigate to='/' replace />}
+          />
+          <Route
+            path='/leaderboards'
+            element={ user ? <Leaderboard type='monthlyXp'/> : <Navigate to='/' replace />}
+          />
           <Route
             path='/practice'
             element={ user ? <Practice /> : <Navigate to='/' replace />}

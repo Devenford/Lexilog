@@ -2,11 +2,24 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
+const UserWord = require('../models/userWord')
 const { userExtractor } = require('../utils/middleware')
+
+const TOTAL_WORDS = 720
 
 usersRouter.get('/me', userExtractor, async (request, response) => {
   const user = await User.findById(request.user.id)
-  response.json(user)
+  const masteredCount = await UserWord.countDocuments({
+    user: request.user.id,
+    status: 'mastered'
+  })
+
+  // user is a mongoose document
+  response.json({
+    ...user.toJSON(),
+    masteredWords: masteredCount,
+    totalWords: TOTAL_WORDS
+  })
   // When .json() is called the .toJSON() transformation is called from the userSchema, which deletes the passwordHash, name, and role before sending the array of users in the response.
 })
 
