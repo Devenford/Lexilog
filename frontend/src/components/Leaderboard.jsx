@@ -3,7 +3,9 @@ import leaderboardService from '../services/leaderboard'
 
 import { Loader2 } from 'lucide-react'
 import {
-  Card
+  Card,
+  CardHeader,
+  CardTitle
 } from '@/components/ui/card'
 import {
   Table,
@@ -58,25 +60,32 @@ const Leaderboard = ({ type }) => {
   }
 
   return (
-    <Card className='max-w-5xl mx-auto'>
-      <Table>
+    <Card className='max-w-5xl mx-auto p-4'>
+      <CardHeader>
+        <CardTitle className="text-center text-2xl">
+          Top 100 Users by {titles[type]}
+        </CardTitle>
+      </CardHeader>
+
+
+      <Table className='w-full'>
         <TableHeader>
           <TableRow>
-            <TableHead className='text-black text-lg text-center'>Rank</TableHead>
-            <TableHead  className='text-black text-lg text-center'>Username</TableHead>
-            <TableHead className='text-black text-lg text-center'>{titles[type]}</TableHead>
+            <TableHead className='w-1/3 text-black text-lg text-center'>Rank</TableHead>
+            <TableHead  className='w-1/3 text-black text-lg text-center'>Username</TableHead>
+            <TableHead className='w-1/3 text-black text-lg text-center'>{titles[type]}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.map((u, i) => ( // u = user, i = index
             <TableRow key={u.id}>
-              <TableCell className='text-lg text-center'>
+              <TableCell className='w-1/3 text-lg text-center'>
                 {i + 1}
               </TableCell>
-              <TableCell className='text-lg text-center'>
+              <TableCell className='w-1/3 text-lg text-center'>
                 {u.username}
               </TableCell>
-              <TableCell className='text-lg text-center'>
+              <TableCell className='w-1/3 text-lg text-center'>
                 {u[type]}
               </TableCell>
             </TableRow>

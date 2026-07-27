@@ -15,49 +15,45 @@ const Home = ({ user }) => {
     const percentageComplete = (user.masteredWords/user.totalWords) * 100
 
     return (
-      <div>
-        <Card className='px-4 py-8 mx-8'>
-          <CardHeader>
-            <CardTitle className='text-xl'>
+      <Card className='px-4 py-8 mx-8'>
+        <CardHeader>
+          <CardTitle className='text-xl'>
               Welcome back {`${user.username}`}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className='flex flex-col gap-8 text-base'>
-            <p className='text-lg'>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className='flex flex-col gap-8 text-base'>
+          <p className='text-lg'>
               Click on Practice to start.
-            </p>
-            <p className='font-bold text-lg'>
-              {user.masteredWords}/{user.totalWords} Words Mastered
-              <Progress
-                trackClassName='h-6 rounded-full'
-                indicatorClassName='bg-green-500'
-                value={percentageComplete}
-              />
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+          </p>
+          <div className='font-bold text-lg'>
+            {user.masteredWords}/{user.totalWords} Words Mastered
+            <Progress
+              trackClassName='h-6 rounded-full'
+              indicatorClassName='bg-green-500'
+              value={percentageComplete}
+            />
+          </div>
+        </CardContent>
+      </Card>
     )
   }
 
   return (
-    <div>
-      <Card className='px-4 py-8 mx-8'>
-        <CardHeader>
-          <CardTitle className='text-xl'>
+    <Card className='px-4 py-8 mx-8'>
+      <CardHeader>
+        <CardTitle className='text-xl'>
             Unlock the Power of Words
-          </CardTitle>
-        </CardHeader>
-        <CardContent className='flex flex-col gap-4 text-base'>
-          <p>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className='flex flex-col gap-4 text-base'>
+        <p>
             Expand your vocabulary with personalized learning, daily practice, and smart revision. Lexilog helps you remember more, express yourself better, and keep growing—one word at a time.
-          </p>
-          <p>
+        </p>
+        <p>
           Complete daily challenges, earn rewards, build streaks, and master new words.
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+        </p>
+      </CardContent>
+    </Card>
   )
 }
 
