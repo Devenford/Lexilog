@@ -5,6 +5,9 @@ Lexilog is a full-stack **gamified vocabulary learning platform** that helps use
 
 The platform uses a proficiency-based learning system with a weighted word selection algorithm to prioritize weaker vocabulary while periodically reviewing mastered words, enabling more effective long-term retention.
 
+## Live Demo
+https://lexilog-7h4r.onrender.com/
+
 ---
 
 ## Features
