@@ -8,6 +8,22 @@ The platform uses a proficiency-based learning system with a weighted word selec
 ## Live Demo
 https://lexilog-7h4r.onrender.com/
 
+## 📸 Screenshots
+
+### 🏠 Main Page
+![Main Page](./screenshots/Main_Page.png)
+
+### 📊 Dashboard
+![Dashboard](./screenshots/Dashboard.png)
+
+### 📝 Quiz
+![Quiz](./screenshots/QuizScreen.png)
+
+### 🎉 Results
+![Results](./screenshots/QuizResultScreen.png)
+
+### 🏆 Leaderboard
+![Leaderboard](./screenshots/Leaderboards.png)
 ---
 
 ## Features
