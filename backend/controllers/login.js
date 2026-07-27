@@ -2,6 +2,9 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
 const User = require('../models/user')
+const UserWord = require('../models/userWord')
+
+const TOTAL_WORDS = 720
 
 loginRouter.post('/', async (request, response) => {
   const { username, password } = request.body
@@ -25,11 +28,18 @@ loginRouter.post('/', async (request, response) => {
     { expiresIn: 24*60*60 }  // or '24h'
   )
 
+  const masteredCount = await UserWord.countDocuments({
+    user: user._id,
+    status: 'mastered'
+  })
+
   response
     .status(200)
     .json({
       token,
-      ...user.toJSON()
+      ...user.toJSON(),
+      masteredWords: masteredCount,
+      totalWords: TOTAL_WORDS
     })
   // We can send the name here (in the login endpoint), since only an authentic user (with the right username and password credentials) can login. Thus, only the user will have access to their name.
   // Don't call .json(), since it would call the toJSON() transformation, which would delete the name

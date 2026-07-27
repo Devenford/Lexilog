@@ -15,11 +15,12 @@ usersRouter.get('/me', userExtractor, async (request, response) => {
   })
 
   // user is a mongoose document
-  response.json({
-    ...user.toJSON(),
-    masteredWords: masteredCount,
-    totalWords: TOTAL_WORDS
-  })
+  response.status(200)
+    .json({
+      ...user.toJSON(),
+      masteredWords: masteredCount,
+      totalWords: TOTAL_WORDS
+    })
   // When .json() is called the .toJSON() transformation is called from the userSchema, which deletes the passwordHash, name, and role before sending the array of users in the response.
 })
 
@@ -54,11 +55,18 @@ usersRouter.post('/', async (request, response) => {
     { expiresIn: 24*60*60 }  // or '24h'
   )
 
+  const masteredCount = await UserWord.countDocuments({
+    user: savedUser._id,
+    status: 'mastered'
+  })
+
   response
     .status(201)
     .json({
       token,
-      ...savedUser.toJSON()
+      ...savedUser.toJSON(),
+      masteredWords: masteredCount,
+      totalWords: TOTAL_WORDS
     })
 })
 
