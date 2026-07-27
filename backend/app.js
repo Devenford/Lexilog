@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
@@ -40,5 +41,13 @@ if (process.env.NODE_ENV === 'test') {
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
+
+// Serve frontend
+app.use(express.static(path.join(__dirname, 'dist')))
+
+// React Router fallback
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+})
 
 module.exports = app
