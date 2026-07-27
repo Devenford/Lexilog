@@ -77,7 +77,7 @@ const App = () => {
           <div className='flex items-center gap-3'>
             <NavLink to='/'>
               <img
-                src='../images/Final_Website_Logo.png'
+                src='/images/Final_Website_Logo.png'
                 className='h-15'
               />
             </NavLink>
@@ -106,7 +106,7 @@ const App = () => {
               <>
                 <Tooltip>
                   <TooltipTrigger render={<Badge variant='secondary' className='h-10 text-base'>
-                    <img src='../images/coin.svg' alt='Coin' className='h-8 w-8'/>
+                    <img src='/images/coin.svg' alt='Coin' className='h-8 w-8'/>
                     {user.coins}
                   </Badge>} />
                   <TooltipContent>
@@ -115,7 +115,7 @@ const App = () => {
                 </Tooltip>
                 <Tooltip>
                   <TooltipTrigger render={<Badge variant='secondary' className='h-10 text-base'>
-                    <img src='../images/xp.svg' alt='XP' className='h-8 w-8'/>
+                    <img src='/images/xp.svg' alt='XP' className='h-8 w-8'/>
                     {user.xp}
                   </Badge>} />
                   <TooltipContent>
