@@ -50,7 +50,7 @@ const SignUp = ({ setUser }) => {
             Sign Up
             </CardTitle>
             <CardDescription className='text-base'>
-            Create a an account
+            Create an account
             </CardDescription>
           </CardHeader>
           <CardContent>
