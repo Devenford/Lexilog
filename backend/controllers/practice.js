@@ -2,6 +2,7 @@ const practiceRouter = require('express').Router()
 const UserWord = require('../models/userWord')
 const resultCalculation = require('../services/MultipleChoice/resultCalculation')
 const quizCreationService = require('../services/MultipleChoice/quizCreation')
+const updateStreak = require('../services/updateStreak')
 // middleware.userExtractor has already been called in app.js
 
 practiceRouter.get('/multiple-choice', async (request, response) => {
@@ -41,12 +42,16 @@ practiceRouter.post('/multiple-choice', async (request, response) => {
     await userword.save()
   }
 
+  updateStreak(user)
+
   await user.save()
   response
     .status(200)
     .json({
       coinsGained: user.coins - initialCoins,
-      xpGained: user.xp - initialXp
+      xpGained: user.xp - initialXp,
+      currentStreak: user.currentStreak,
+      longestStreak: user.longestStreak
     })
 })
 

@@ -32,6 +32,18 @@ const userSchema = new mongoose.Schema({
   monthlyXp: {
     type: Number,
     default: 0
+  },
+  currentStreak: {
+    type: Number,
+    default: 0
+  },
+  longestStreak: {
+    type: Number,
+    default: 0,
+  },
+  lastPracticeDate: {
+    type: Date,
+    default: null,
   }
 })
 
