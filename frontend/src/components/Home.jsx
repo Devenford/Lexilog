@@ -18,7 +18,7 @@ const Home = ({ user }) => {
       <Card className='px-4 py-8 mx-8'>
         <CardHeader>
           <CardTitle className='text-xl'>
-              Welcome back {`${user.username}`}
+              Welcome back {`${user.username}`} 😊
           </CardTitle>
         </CardHeader>
         <CardContent className='flex flex-col gap-8 text-base'>
@@ -32,6 +32,14 @@ const Home = ({ user }) => {
               indicatorClassName='bg-green-500'
               value={percentageComplete}
             />
+          </div>
+          <div className='font-bold text-lg'>
+            <p>
+              🔥 Streak: {user.currentStreak} {user.currentStreak === 1 ? 'day': 'days'}
+            </p>
+            <p>
+              ⭐ Longest Streak: {user.longestStreak} {user.longestStreak === 1 ? 'day': 'days'}
+            </p>
           </div>
         </CardContent>
       </Card>

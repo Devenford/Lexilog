@@ -45,7 +45,9 @@ const MultipleChoice = ({ setUser }) => {
         ...user,
         coins: user.coins + response.coinsGained,
         xp: user.xp + response.xpGained,
-        monthlyXp: user.monthlyXp + response.xpGained
+        monthlyXp: user.monthlyXp + response.xpGained,
+        currentStreak: response.currentStreak,
+        longestStreak: response.longestStreak
       }))
     }
 
