@@ -105,7 +105,14 @@ const MultipleChoice = ({ setUser }) => {
   }
 
   return (
-    <MultipleChoiceCard key={words[curr].id} word={words[curr]} curr={curr} setCurr={setCurr} setResults={setResults} />
+    <MultipleChoiceCard
+      key={words[curr].id}
+      word={words[curr]}
+      curr={curr}
+      setCurr={setCurr}
+      setResults={setResults}
+      numQuestions={words.length}
+    />
   )
 }
 

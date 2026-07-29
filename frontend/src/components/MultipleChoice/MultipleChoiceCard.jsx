@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Progress } from '@/components/ui/progress'
 
 const shuffle = (originalArray) => {
   const shuffledArray = [...originalArray]  // do not mutate the original array (paragraphs array in each word object)
@@ -22,7 +23,7 @@ const shuffle = (originalArray) => {
   return shuffledArray
 }
 
-const MultipleChoiceCard = ({ word, curr, setCurr, setResults }) => {
+const MultipleChoiceCard = ({ word, curr, setCurr, setResults, numQuestions }) => {
   const [tries, setTries] = useState(0)
   const [paragraph] = useState(Math.floor(Math.random() * 3)) // 3 = no. of paragraphs
   const [options] = useState(shuffle(word.options))
@@ -39,6 +40,11 @@ const MultipleChoiceCard = ({ word, curr, setCurr, setResults }) => {
   return (
     <div className='flex justify-center'>
       <Card className='flex flex-col gap-4 px-4 py-8 mx-8 w-xl'>
+        <Progress
+          trackClassName='h-3 mb-4 rounded-full'
+          indicatorClassName='bg-green-500'
+          value={(curr)*100/numQuestions}
+        />
         <CardHeader>
           <CardTitle className='text-lg text-center'>
             Question {`${curr+1}`}
