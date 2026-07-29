@@ -113,7 +113,6 @@ Lexilog/
 ├── backend/
 │   ├── controllers/
 │   ├── models/
-│   ├── requests/
 │   ├── scripts/
 │   ├── services/
 │   ├── tests/
