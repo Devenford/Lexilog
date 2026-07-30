@@ -26,7 +26,6 @@ app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
 //routing middleware
-//app.use('/api/words', middleware.userExtractor, wordsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/practice', middleware.userExtractor, practiceRouter)
