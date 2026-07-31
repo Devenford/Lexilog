@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
 const User = require('../models/user')
 const UserWord = require('../models/userWord')
+const updateStreak = require('../services/updateStreak')
 
 const TOTAL_WORDS = 720
 
@@ -32,6 +33,12 @@ loginRouter.post('/', async (request, response) => {
     user: user._id,
     status: 'mastered'
   })
+
+  const oldStreak = user.currentStreak
+  updateStreak(user, 'check current streak')
+  if (user.currentStreak !== oldStreak) {
+    await user.save()
+  }
 
   response
     .status(200)

@@ -4,6 +4,7 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 const UserWord = require('../models/userWord')
 const { userExtractor } = require('../utils/middleware')
+const updateStreak = require('../services/updateStreak')
 
 const TOTAL_WORDS = 720
 
@@ -13,6 +14,12 @@ usersRouter.get('/me', userExtractor, async (request, response) => {
     user: request.user.id,
     status: 'mastered'
   })
+
+  const oldStreak = user.currentStreak
+  updateStreak(user, 'check current streak')
+  if (user.currentStreak !== oldStreak) {
+    await user.save()
+  }
 
   // user is a mongoose document
   response.status(200)

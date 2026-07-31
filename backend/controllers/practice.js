@@ -42,9 +42,9 @@ practiceRouter.post('/multiple-choice', async (request, response) => {
     await userword.save()
   }
 
-  updateStreak(user)
-
+  updateStreak(user, 'after practice')
   await user.save()
+
   response
     .status(200)
     .json({
