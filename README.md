@@ -82,7 +82,7 @@ The algorithm:
 
 * Assigns each word a proficiency score based on user performance.
 * Uses weighted random selection to prioritize words with lower proficiency.
-* Introduces new vocabulary gradually.
+* Gradually introduces new vocabulary as users progress.
 * Periodically reviews mastered words to reinforce retention.
 
 This ensures that users spend more time practicing challenging vocabulary while maintaining previously learned words.
