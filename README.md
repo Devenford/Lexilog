@@ -33,6 +33,7 @@ https://lexilog-7h4r.onrender.com/
 * Weighted random word selection based on user proficiency
 * Multiple-choice quizzes with instant feedback
 * Progress tracking with XP, coins, and proficiency levels
+* Daily practice streaks with current and longest streak tracking
 * Leaderboard system for user motivation
 * Persistent user learning data stored in MongoDB
 * Automated frontend, backend, and end-to-end testing
