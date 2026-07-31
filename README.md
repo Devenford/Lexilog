@@ -98,6 +98,7 @@ Users can:
 * Earn XP through quiz completion
 * Collect coins as rewards
 * Increase word proficiency
+* Practice daily to maintain streaks
 * Master vocabulary items
 * Compete on a leaderboard
 
