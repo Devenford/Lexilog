@@ -9,11 +9,9 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    minLength: 1,
   },
   passwordHash: {
     type: String,
-    minLength: 1,
     required: true
   },
   role: { // user or admin

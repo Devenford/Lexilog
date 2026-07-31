@@ -64,9 +64,10 @@ const SignUp = ({ setUser }) => {
                   id='username'
                   name='username'
                   autoComplete='username'
-                  required
                   value={username}
                   onChange={({ target }) => setUsername(target.value)}
+                  minLength={3}
+                  required
                 />
               </div>
               <div className='grid gap-2'>
@@ -78,7 +79,6 @@ const SignUp = ({ setUser }) => {
                   id='name'
                   name='name'
                   autoComplete='name'
-                  required
                   value={name}
                   onChange={({ target }) => setName(target.value)}
                 />
@@ -92,9 +92,10 @@ const SignUp = ({ setUser }) => {
                   id='password'
                   name='password'
                   autoComplete='current-password'
-                  required
                   value={password}
                   onChange={({ target }) => setPassword(target.value)}
+                  minLength={3}
+                  required
                 />
               </div>
             </div>
