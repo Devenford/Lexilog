@@ -81,11 +81,11 @@ Lexilog uses a personalized vocabulary selection system to optimize practice ses
 The algorithm:
 
 * Assigns each word a proficiency score based on user performance.
-* Uses weighted random selection to prioritize words with lower proficiency.
+* Uses weighted random selection to determine the next words to practice, prioritizing those with lower proficiency.
 * Gradually introduces new vocabulary as users progress.
 * Periodically reviews mastered words to reinforce retention.
 
-This ensures that users spend more time practicing challenging vocabulary while maintaining previously learned words.
+This ensures that users spend more time practicing challenging vocabulary while reinforcing previously learned words.
 
 ---
 
