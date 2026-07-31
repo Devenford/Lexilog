@@ -64,6 +64,10 @@ https://lexilog-7h4r.onrender.com/
 * Supertest
 * Playwright
 
+### Deployment
+
+* Render
+
 ### External APIs
 
 * Free Dictionary API (phonetics and pronunciation audio)
