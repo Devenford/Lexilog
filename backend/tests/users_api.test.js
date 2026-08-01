@@ -3,6 +3,7 @@ const assert = require('node:assert')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const app = require('../app')
 const User = require('../models/user')
 const helper = require('./helper')
@@ -43,7 +44,7 @@ describe('sign up', () => {
     assert(usernames.includes(newUser.username))
   })
 
-  test('fails with proper status code and message when the username is already taken', async () => {
+  test('fails when the username is already taken', async () => {
     const usersAtStart = helper.usersInDb()
     const duplicateUser = {
       username: 'root',
@@ -62,7 +63,7 @@ describe('sign up', () => {
   })
 
   describe('when an invalid user is added', () => {
-    test('fails with status code 400 and message if the username is absent', async () => {
+    test('fails if the username is absent', async () => {
       const usersAtStart = await helper.usersInDb()
 
       const result = await api
@@ -76,7 +77,7 @@ describe('sign up', () => {
       assert.strictEqual(usersAtEnd.length, usersAtStart.length)
     })
 
-    test('fails with status code 400 and message if the password is absent', async () => {
+    test('fails if the password is absent', async () => {
       const usersAtStart = await helper.usersInDb()
 
       const result = await api
@@ -90,7 +91,7 @@ describe('sign up', () => {
       assert.strictEqual(usersAtEnd.length, usersAtStart.length)
     })
 
-    test('fails with status code 400 and message if the username is shorter than 3 characters', async () => {
+    test('fails if the username is shorter than 3 characters', async () => {
       const usersAtStart = await helper.usersInDb()
 
       const result = await api
@@ -104,7 +105,7 @@ describe('sign up', () => {
       assert.strictEqual(usersAtEnd.length, usersAtStart.length)
     })
 
-    test('fails with status code 400 and message if the password is shorter than 3 characters', async () => {
+    test('fails if the password is shorter than 3 characters', async () => {
       const usersAtStart = await helper.usersInDb()
 
       const result = await api
@@ -120,7 +121,74 @@ describe('sign up', () => {
   })
 })
 
-describe('get current user')
+describe('get current user', () => {
+  let userToken, userId
+
+  beforeEach(async () => {
+    await User.deleteMany({})
+
+    const response = await api
+      .post('/api/users')
+      .send(newUser)
+
+    userToken = response.body.token
+    userId = response.body.id
+  })
+
+  describe('when the user exists', () => {
+    test('succeeds with a valid token', async () => {
+      const result = await api
+        .get('/api/users/me')
+        .set('Authorization', `Bearer ${userToken}`)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+      assert.strictEqual(result.body.username, newUser.username)
+    })
+
+    test('fails with an invalid token', async () => {
+      const result = await api
+        .get('/api/users/me')
+        .set('Authorization', 'Bearer invalidtoken12345')
+        .expect(401)
+        .expect('Content-Type', /application\/json/)
+
+      assert(result.body.error.includes('token invalid'))
+    })
+
+    test('fails with an expired token', async () => {
+      const userForToken = {
+        username: newUser.username,
+        id: userId
+      }
+      const expiredToken = jwt.sign(
+        userForToken,
+        process.env.SECRET,
+        { expiresIn: -1 }  // -1 = expires on creation
+      )
+
+      const result = await api
+        .get('/api/users/me')
+        .set('Authorization', `Bearer ${expiredToken}`)
+        .expect(401)
+        .expect('Content-Type', /application\/json/)
+
+      assert(result.body.error.includes('token expired'))
+    })
+  })
+
+  test('fails when the user does not exist', async () => {
+    await User.findByIdAndDelete(userId)
+
+    const result = await api
+      .get('/api/users/me')
+      .set('Authorization', `Bearer ${userToken}`)
+      .expect(401)
+      .expect('Content-Type', /application\/json/)
+
+    assert(result.body.error.includes('userId missing or not valid'))
+  })
+})
 
 
 after(async () => {

@@ -54,7 +54,7 @@ const userExtractor = async (request, response, next) => {
   const decodedToken = jwt.verify(request.token, process.env.SECRET)
   // .verify only checks if the token is authentic/valid, it doesn't check if the word (with the given id) belongs to the user that sent the request. Thus, anyone with a valid token and UserId could delete any word, even ones that don't belong to them.
   if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
+    return response.status(401).json({ error: 'token missing id' })
   }
 
   const user = await User.findById(decodedToken.id)
