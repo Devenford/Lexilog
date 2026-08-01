@@ -33,6 +33,7 @@ https://lexilog-7h4r.onrender.com/
 * Weighted random word selection based on user proficiency
 * Multiple-choice quizzes with instant feedback
 * Progress tracking with XP, coins, and proficiency levels
+* Daily practice streaks with current and longest streak tracking
 * Leaderboard system for user motivation
 * Persistent user learning data stored in MongoDB
 * Automated frontend, backend, and end-to-end testing
@@ -63,6 +64,14 @@ https://lexilog-7h4r.onrender.com/
 * Supertest
 * Playwright
 
+### Deployment
+
+* Render
+
+### External APIs
+
+* Free Dictionary API (phonetics and pronunciation audio)
+
 ---
 
 ## Learning Algorithm
@@ -72,11 +81,11 @@ Lexilog uses a personalized vocabulary selection system to optimize practice ses
 The algorithm:
 
 * Assigns each word a proficiency score based on user performance.
-* Uses weighted random selection to prioritize words with lower proficiency.
-* Introduces new vocabulary gradually.
+* Uses weighted random selection to determine the next words to practice, prioritizing those with lower proficiency.
+* Gradually introduces new vocabulary as users progress.
 * Periodically reviews mastered words to reinforce retention.
 
-This ensures that users spend more time practicing challenging vocabulary while maintaining previously learned words.
+This ensures that users spend more time practicing challenging vocabulary while reinforcing previously learned words.
 
 ---
 
@@ -89,6 +98,7 @@ Users can:
 * Earn XP through quiz completion
 * Collect coins as rewards
 * Increase word proficiency
+* Practice daily to maintain streaks
 * Master vocabulary items
 * Compete on a leaderboard
 
