@@ -24,6 +24,14 @@ practiceRouter.post('/multiple-choice', async (request, response) => {
     tries: tries
   }
   */
+  if (results.length !== 10) {
+    response
+      .status(400)
+      .json({
+        error: 'exactly 10 answers are required'
+      })
+  }
+
   let initialXp = user.xp
   let initialCoins = user.coins
 
@@ -53,6 +61,7 @@ practiceRouter.post('/multiple-choice', async (request, response) => {
       currentStreak: user.currentStreak,
       longestStreak: user.longestStreak
     })
+  // status returned is 200 and not 201, since a new userWord may or may not be created. So, the creation of a resource is not guaranteed.
 })
 
 module.exports = practiceRouter
