@@ -34,10 +34,34 @@ const WordInfo = ({ word, paragraph }) => {
 
   const getDefinitions = () => word.definitions.filter(d => d.paragraphIndices.includes(paragraph))
 
-  const playAudio = () => {
-    if (audioRef.current) {
-      audioRef.current.play()
+  const speakWord = () => {
+    const utterance = new SpeechSynthesisUtterance(`The word is: ${word.word}.`)
+    utterance.lang = 'en-US'
+    utterance.rate = 0.8
+
+    const voices = window.speechSynthesis.getVoices()
+    const voice = voices.find(v => v.lang === 'en-US') ?? voices.find(v => v.lang.startsWith('en'))
+
+    if (voice) {
+      utterance.voice = voice
     }
+
+    window.speechSynthesis.cancel()
+    window.speechSynthesis.speak(utterance)
+  }
+
+  const playAudio = async () => {
+    if (audio && audioRef.current) {
+      try {
+        await audioRef.current.play()
+        return
+      }
+      catch {
+        // Dictionary API returns a broken/unsupported audio URL
+      }
+    }
+
+    speakWord()
   }
 
   return (
@@ -48,26 +72,24 @@ const WordInfo = ({ word, paragraph }) => {
           Definition
           </h3>
           <span className='text-base'>{phonetic}</span>
-          { audio && (
-            <>
-              <audio ref={audioRef} src={audio} />
-              <Tooltip>
-                <TooltipTrigger render={
-                  <Button
-                    variant='ghost'
-                    size='icon'
-                    className='h-10 w-10 hover:bg-gray-100 hover:text-inherit'
-                    onClick={playAudio}
-                  >
-                    <Volume2 className='h-6 w-6'/>
-                  </Button>
-                } />
-                <TooltipContent side='right'>
-                  <p className='text-base'>Play pronunciation</p>
-                </TooltipContent>
-              </Tooltip>
-            </>
-          )}
+
+          { audio && <audio ref={audioRef} src={audio} />}
+
+          <Tooltip>
+            <TooltipTrigger render={
+              <Button
+                variant='ghost'
+                size='icon'
+                className='h-10 w-10 hover:bg-gray-100 hover:text-inherit'
+                onClick={playAudio}
+              >
+                <Volume2 className='h-6 w-6'/>
+              </Button>
+            } />
+            <TooltipContent side='right'>
+              <p className='text-base'>Play pronunciation</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
 
         <ul className='list-disc space-y-2 pl-5 text-base'>
