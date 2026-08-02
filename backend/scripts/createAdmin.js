@@ -30,3 +30,9 @@ const createAdmin = async () => {
 }
 
 createAdmin()
+
+// To seed the development database:
+// node scripts/createAdmin.js
+
+// To seed the test database:
+// npx cross-env NODE_ENV=test node scripts/createAdmin.js

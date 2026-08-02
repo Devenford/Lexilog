@@ -20,3 +20,9 @@ const uploadWords = async () => {
 }
 
 uploadWords()
+
+// To seed the development database:
+// node scripts/uploadWords.js
+
+// To seed the test database:
+// npx cross-env NODE_ENV=test node scripts/uploadWords.js
