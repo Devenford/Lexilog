@@ -73,7 +73,7 @@ const WordInfo = ({ word, paragraph }) => {
           </h3>
           <span className='text-base'>{phonetic}</span>
 
-          { audio && <audio ref={audioRef} src={audio} />}
+          { audio && <audio ref={audioRef} src={audio} data-testid='Pronunciation Audio' />}
 
           <Tooltip>
             <TooltipTrigger render={
@@ -94,7 +94,7 @@ const WordInfo = ({ word, paragraph }) => {
 
         <ul className='list-disc space-y-2 pl-5 text-base'>
           {getDefinitions().map(d => (
-            <li key={d.id} className='leading-relaxed'>
+            <li key={d.definition} className='leading-relaxed'>
               {d.definition}
             </li>
           ))}
