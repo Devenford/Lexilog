@@ -38,7 +38,7 @@ const Home = ({ user }) => {
               🔥 Streak: {user.currentStreak} {user.currentStreak === 1 ? 'day': 'days'}
             </p>
             <p>
-              ⭐ Longest Streak: {user.longestStreak} {user.longestStreak === 1 ? 'day': 'days'}
+              🏆 Longest Streak: {user.longestStreak} {user.longestStreak === 1 ? 'day': 'days'}
             </p>
           </div>
         </CardContent>

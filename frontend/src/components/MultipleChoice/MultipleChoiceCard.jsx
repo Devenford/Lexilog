@@ -39,7 +39,7 @@ const MultipleChoiceCard = ({ word, curr, setCurr, setResults, numQuestions }) =
 
   return (
     <div className='flex justify-center'>
-      <Card className='flex flex-col gap-4 px-4 py-8 mx-8 w-xl'>
+      <Card className='flex flex-col gap-4 px-4 py-8 mx-8 w-xl' data-testid='MultipleChoiceCard' >
         <Progress
           trackClassName='h-3 mb-4 rounded-full'
           indicatorClassName='bg-green-500'
