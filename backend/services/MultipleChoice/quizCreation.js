@@ -8,6 +8,7 @@ const QUIZ_SIZE = 10
 const LEARN_SIZE = 6
 const NEW_SIZE = 1
 const MASTERED_SIZE = 3
+const MAX_LEARNING_CAPACITY = 20 // Maximum active learning words allowed at one time
 
 const shuffle = (originalArray) => {
   const shuffledArray = [...originalArray]  // do not mutate the original array
@@ -37,19 +38,21 @@ const getQuizWords = async (userId) => {
   // 1.) Add learning words (6 learning)
   quizWords = pickWords(learning, LEARN_SIZE)
 
-  // 2.) Add new, unseen words (1 new word)
-  const assignedWordIds = userWords.map(w => w.word._id)
+  if (learning.length < MAX_LEARNING_CAPACITY) {
+    // 2.) Add new, unseen words (1 new word)
+    const assignedWordIds = userWords.map(w => w.word._id)
 
-  const unseenWords = await Word.find({
-    _id : { $nin: assignedWordIds }
-  })
-  // pick random new words:
-  const newWords = pickRandomWords(unseenWords, NEW_SIZE)
-
-  for (const word of newWords) {
-    quizWords.push({
-      word
+    const unseenWords = await Word.find({
+      _id : { $nin: assignedWordIds }
     })
+    // pick random new words:
+    const newWords = pickRandomWords(unseenWords, NEW_SIZE)
+
+    for (const word of newWords) {
+      quizWords.push({
+        word
+      })
+    }
   }
 
   // 3.) Add already mastered words for revision (3 mastered words)
