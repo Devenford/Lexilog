@@ -3,6 +3,7 @@ const UserWord = require('../models/userWord')
 const resultCalculation = require('../services/MultipleChoice/resultCalculation')
 const quizCreationService = require('../services/MultipleChoice/quizCreation')
 const updateStreak = require('../services/updateStreak')
+const checkMonthlyReset = require('../services/checkMonthlyReset')
 // middleware.userExtractor has already been called in app.js
 
 practiceRouter.get('/multiple-choice', async (request, response) => {
@@ -25,12 +26,14 @@ practiceRouter.post('/multiple-choice', async (request, response) => {
   }
   */
   if (results.length !== 10) {
-    response
+    return response
       .status(400)
       .json({
         error: 'exactly 10 answers are required'
       })
   }
+
+  await checkMonthlyReset() // to reset monthlyXP every month
 
   let initialXp = user.xp
   let initialCoins = user.coins

@@ -1,11 +1,8 @@
 const leaderboardRouter = require('express').Router()
 const User = require('../models/user')
-const checkMonthlyReset = require('../services/checkMonthlyReset')
 // middleware.userExtractor has already been called in app.js
 
 leaderboardRouter.get('/', async (request, response) => {
-  await checkMonthlyReset()
-
   const [usersByCoins, usersByXp, usersByMonthlyXp] = await Promise.all([
     User.find({ role: { $ne: 'admin' } })
       .select({ username: 1, coins: 1 })
