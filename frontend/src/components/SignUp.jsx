@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import signupService from '../services/signup'
-import authService from '../services/auth'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -24,15 +23,12 @@ const SignUp = ({ setUser }) => {
 
   const handleSignUp = async (event) => {
     event.preventDefault()
+
     try {
       const user = await signupService.signup({ username, name, password })
       setUsername('')
       setName('')
       setPassword('')
-      authService.setToken(user.token)
-      window.localStorage.setItem(
-        'loggedLexilogUserToken', user.token
-      )
       setUser(user)
       navigate('/')
     }

@@ -77,9 +77,14 @@ usersRouter.post('/', async (request, response) => {
   })
 
   response
+    .cookie('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000  // in milliseconds
+    })
     .status(201)
     .json({
-      token,
       ...savedUser.toJSON(),
       masteredWords: masteredCount,
       totalWords: TOTAL_WORDS

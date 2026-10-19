@@ -3,8 +3,8 @@ import {
   Routes, Route, NavLink, Navigate, useNavigate
 } from 'react-router-dom'
 
-import authService from './services/auth'
 import userService from './services/user'
+import loginService from './services/login'
 import Home from './components/Home'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
@@ -32,23 +32,17 @@ import {
 
 const App = () => {
   const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true) // if the user state is still being loaded/retrieved from localStorage
+  const [loading, setLoading] = useState(true) // while the user's authentication state is being retrieved from the backend
   const navigate = useNavigate()
 
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const token = window.localStorage.getItem('loggedLexilogUserToken')
-        if (token) {
-          authService.setToken(token)
-          const user = await userService.getCurrentUser()
-          setUser(user)    // updation of state causes re-rendering of the component (App), which it belongs to, and their child components/descendants
-        }
+        const user = await userService.getCurrentUser()
+        setUser(user)    // updation of state causes re-rendering of the component (App), which it belongs to, and their child components/descendants
       }
-      catch { // token expired, login again
-        window.localStorage.removeItem('loggedLexilogUserToken')
+      catch { // No valid authentication cookie or the token has expired, login again
         setUser(null)
-        authService.setToken(null)
       }
       finally {
         setLoading(false)
@@ -56,11 +50,11 @@ const App = () => {
     }
 
     loadUser()
-  }, []) // to restore a user that's logged in, must be in App to ensure the user's authentication is restored across all pages
+  }, []) // Restore authentication state by asking the backend for the current user
+  // to restore a user that's logged in, must be in App to ensure the user's authentication is restored across all pages
 
-  const handleLogout = () => {
-    window.localStorage.removeItem('loggedLexilogUserToken')
-    authService.setToken(null)
+  const handleLogout = async () => {
+    await loginService.logout()
     setUser(null)
   }
 

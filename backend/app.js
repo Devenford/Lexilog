@@ -8,7 +8,7 @@ const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const practiceRouter = require('./controllers/practice')
 const leaderboardRouter = require('./controllers/leaderboard')
-
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
@@ -22,6 +22,7 @@ mongoose
   })
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
